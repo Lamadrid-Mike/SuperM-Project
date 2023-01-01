@@ -10,7 +10,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="/scripts.js"></script>
     <title>SuperM</title>
   </head>
   <body>
@@ -19,11 +18,11 @@
       <nav class="links">
         <a href="/index.html">Home</a>
         <a href="/products.html">Products</a>
-        <a class="cart" href="">Cart(0)</a>
+        <a class="cart" href="">Cart(<span class="value">0</span>)</a>
       </nav>
     </nav>
     <div class="secondContainer">
-      <div>
+      <div class="grid1">
         <h1>Online shopping simplified</h1>
         <p>
           Order your groceries from SuperM with our easy to use app, and get
@@ -31,7 +30,15 @@
         </p>
         <a class="btn" href="/products.html">Start Shopping</a>
       </div>
-      <img alt="Food-Basket" src="/mainPicture.jpg" width="300" height="210" />
+      <div class="grid2">
+        <img
+          alt="Food-Basket"
+          src="/mainPicture.jpg"
+          width="320"
+          height="230"
+        />
+      </div>
     </div>
+    <script src="/scripts.js"></script>
   </body>
 </html>

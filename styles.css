@@ -1,9 +1,9 @@
 body {
-  font-family: "Architects Daughter", cursive;
+  font-family: "Architects Daughter";
   background-color: black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 10% 10% 30% 50%;
+  grid-template-rows: 10% 10% 80%;
 }
 
 .navContainer {
@@ -48,9 +48,22 @@ body {
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 4;
-  display: flex;
-  justify-content: space-around;
-  margin: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 50%);
+  margin: 3em;
+}
+
+.secondContainer .grid1 {
+  grid-column-start: 1;
+  justify-self: center;
+  align-self: center;
+}
+
+.secondContainer .grid2 {
+  grid-column-start: 2;
+  justify-self: right;
+  align-self: center;
 }
 
 .secondContainer h1,
@@ -74,4 +87,81 @@ p {
 .secondContainer img {
   border-radius: 30px;
   margin-left: 8px;
+}
+
+.products h1,
+p {
+  color: whitesmoke;
+}
+
+.products h1 {
+  text-align: left;
+  margin-left: 1em;
+}
+.productsContainer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 20% 40% 40%;
+  margin: 15px;
+  gap: 10px;
+}
+
+.products {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+}
+
+.item1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+
+.item2 {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
+}
+
+.item3 {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 3;
+  grid-row-end: 3;
+}
+
+.item4 {
+  grid-column-start: 2;
+  grid-column-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 3;
+}
+
+.itemsLayout {
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  grid-template-rows: 100%;
+  border: 2px solid #00ffff;
+  border-radius: 25px;
+  align-self: center;
+}
+
+.itemsBtn {
+  background-color: #1d5b5b;
+  color: white;
+  width: 80px;
+  height: 40px;
+  border-style: none;
+  border-radius: 10px;
+  align-self: end;
+  margin-bottom: 15px;
 }
