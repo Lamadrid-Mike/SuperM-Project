@@ -29,19 +29,31 @@ const products = [
 console.log(products);
 
 const items = document.querySelector(".productsContainer");
-const cartValue = Number(document.querySelector(".cartValue").innerHTML);
+const cartValue = document.querySelector(".cartValue");
+const itemOne = document.querySelector(".itemOne");
+const itemTwo = document.querySelector(".itemTwo");
+const cartContainer = document.querySelector(".cartContainer");
 
-const loadItems = function () {
-  products.forEach(function (el, i) {
-    let div = ` <div class="item${i + 1} itemsLayout">
-    <img src="${el.src}" width="150" height="150" />
-    <div>
-      <p>${el.name}</p>
-      <p>${el.weight}</p>
-    </div>
-    <button class="itemsBtn">$${el.price}</button>
+itemOne.addEventListener("click", () => {
+  cartValue.innerHTML = Number(++cartValue.innerHTML);
+  let quantity = 0;
+  const div = `<div class="cartItemLayout">
+    <img src=${products[0].src} width="50" height="50" />
+    <p>${products[0].name}</p>
+    <p>Quantity:${++quantity}</p>
   </div>`;
-    items.insertAdjacentHTML("beforeend", div);
-  });
-};
-loadItems();
+  cartContainer.insertAdjacentHTML("beforeend", div);
+  cartContainer.classList.add("cartContainerFocus");
+});
+
+itemTwo.addEventListener("click", () => {
+  cartValue.innerHTML = Number(++cartValue.innerHTML);
+  let quantity = 0;
+  const div = `<div class="cartItemLayout">
+    <img src=${products[1].src} width="50" height="50" />
+    <p>${products[1].name}</p>
+    <p>Quantity:${++quantity}</p>
+  </div>`;
+  cartContainer.insertAdjacentHTML("beforeend", div);
+  cartContainer.classList.add("cartContainerFocus");
+});
