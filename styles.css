@@ -149,7 +149,7 @@ p {
 .itemsLayout {
   display: grid;
   grid-template-columns: 40% 40% 20%;
-  grid-template-rows: 100%;
+  grid-template-rows: 80% 20%;
   border: 2px solid #00ffff;
   border-radius: 25px;
   align-self: center;
@@ -164,6 +164,10 @@ p {
   border-radius: 10px;
   align-self: end;
   margin-bottom: 15px;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
 }
 
 .cartContainer {
@@ -185,4 +189,18 @@ p {
 .cartItemLayout {
   display: flex;
   justify-content: space-around;
+}
+
+.closeBtn {
+  display: none;
+  color: whitesmoke;
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  font-size: 1.5em;
+}
+
+.centerDivs {
+  align-self: center;
 }

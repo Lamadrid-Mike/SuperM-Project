@@ -30,30 +30,86 @@ console.log(products);
 
 const items = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
-const itemOne = document.querySelector(".itemOne");
-const itemTwo = document.querySelector(".itemTwo");
 const cartContainer = document.querySelector(".cartContainer");
+const closeBtn = document.querySelector(".closeBtn");
 
+let valueOfCart = 0;
+
+const loadProducts = function () {
+  products.forEach((el, i) => {
+    const p = document.createElement("p");
+    const info = document.createElement("p");
+    const div = document.createElement("div");
+    const img = document.createElement("img");
+    const outerDiv = document.createElement("div");
+    const button = document.createElement("button");
+    div.classList.add(`item${i + 1}`);
+    div.classList.add("itemsLayout");
+    div.appendChild(img).setAttribute("src", `${el.src}`);
+    img.setAttribute("width", "150");
+    img.setAttribute("height", 150);
+    img.classList.add("centerDivs");
+    items
+      .appendChild(div)
+      .appendChild(outerDiv)
+      .appendChild(p).textContent = `${el.name}`;
+    outerDiv.classList.add("centerDivs");
+    outerDiv.appendChild(info).textContent = `${el.weight}`;
+    button.classList.add("itemsBtn");
+    button.setAttribute("id", `btn${i + 1}`);
+    button.setAttribute("type", "submit");
+    div.appendChild(button).textContent = `${el.price}`;
+  });
+};
+
+loadProducts();
+
+const itemsBtn = document.getElementById("btn1");
+itemsBtn.addEventListener("click", () => {
+  valueOfCart = Number(cartValue.innerHTML);
+  cartValue.innerHTML = ++valueOfCart;
+});
+
+/*
 itemOne.addEventListener("click", () => {
-  cartValue.innerHTML = Number(++cartValue.innerHTML);
-  let quantity = 0;
-  const div = `<div class="cartItemLayout">
-    <img src=${products[0].src} width="50" height="50" />
-    <p>${products[0].name}</p>
-    <p>Quantity:${++quantity}</p>
-  </div>`;
-  cartContainer.insertAdjacentHTML("beforeend", div);
-  cartContainer.classList.add("cartContainerFocus");
-});
+  valueOfCart = Number(cartValue.innerHTML);
+  cartValue.innerHTML = ++valueOfCart;
 
-itemTwo.addEventListener("click", () => {
-  cartValue.innerHTML = Number(++cartValue.innerHTML);
-  let quantity = 0;
-  const div = `<div class="cartItemLayout">
-    <img src=${products[1].src} width="50" height="50" />
-    <p>${products[1].name}</p>
-    <p>Quantity:${++quantity}</p>
-  </div>`;
-  cartContainer.insertAdjacentHTML("beforeend", div);
+  const p = document.createElement("p");
+  const img = document.createElement("img");
+  const div = document.createElement("div");
+  div.appendChild(img).setAttribute("width", "100");
+  img.setAttribute("height", "100");
+  img.setAttribute("src", `${products[0].src}`);
+  cartContainer
+    .appendChild(div)
+    .appendChild(p).innerHTML = `${products[0].name}`;
+
+  div.classList.add("cartItemLayout");
   cartContainer.classList.add("cartContainerFocus");
+  closeBtn.style.display = "block";
 });
+*/
+
+/*
+closeBtn.addEventListener("click", () => {
+  if (valueOfCart >= 1) {
+    cartValue.innerHTML = --valueOfCart;
+  }
+  if (valueOfCart === 0) {
+    closeBtn.style.display = "none";
+  }
+  cartContainer.removeChild(cartContainer.lastElementChild);
+});
+*/
+
+/*
+const div = `<div class="cartItemLayout">
+<img src=${products[0].src} width="50" height="50" />
+<p>${products[0].name}</p>
+<p>Quantity:${++quantity}</p>
+</div>`;
+
+cartContainer.classList.add("cartContainerFocus");
+closeBtn.style.display = "block";
+*/
