@@ -43,6 +43,7 @@ const loadProducts = function () {
     const img = document.createElement("img");
     const outerDiv = document.createElement("div");
     const button = document.createElement("button");
+    const span = document.createElement("span");
     div.classList.add(`item${i + 1}`);
     div.classList.add("itemsLayout");
     div.appendChild(img).setAttribute("src", `${el.src}`);
@@ -56,19 +57,24 @@ const loadProducts = function () {
     outerDiv.classList.add("centerDivs");
     outerDiv.appendChild(info).textContent = `${el.weight}`;
     button.classList.add("itemsBtn");
-    button.setAttribute("id", `btn${i + 1}`);
     button.setAttribute("type", "submit");
+    span.classList.add("centerDivs");
+    span.classList.add("closeBtn");
+    div.appendChild(span).textContent = "x";
     div.appendChild(button).textContent = `${el.price}`;
   });
 };
 
 loadProducts();
 
-const itemsBtn = document.getElementById("btn1");
-itemsBtn.addEventListener("click", () => {
-  valueOfCart = Number(cartValue.innerHTML);
-  cartValue.innerHTML = ++valueOfCart;
-});
+const itemsBtn = Array.from(document.getElementsByTagName("button"));
+itemsBtn.map((el) =>
+  el.addEventListener("click", () => {
+    valueOfCart = Number(cartValue.textContent);
+    cartValue.innerHTML = ++valueOfCart;
+    cartContainer.classList.add("cartContainerFocus");
+  })
+);
 
 /*
 itemOne.addEventListener("click", () => {
