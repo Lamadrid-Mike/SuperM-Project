@@ -203,3 +203,10 @@ p {
 .centerDivs {
   align-self: center;
 }
+
+.hideBtn {
+  display: none;
+}
+.showBtn {
+  display: block;
+}
