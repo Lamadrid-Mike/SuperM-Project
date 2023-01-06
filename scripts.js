@@ -26,8 +26,6 @@ const products = [
   },
 ];
 
-console.log(products);
-
 const items = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
@@ -69,12 +67,19 @@ loadProducts();
 const itemsBtn = Array.from(document.getElementsByTagName("button"));
 itemsBtn.map((el, index) =>
   el.addEventListener("click", () => {
+    const insertItem = document.createElement("div");
+    const p = document.createElement("p");
+    insertItem.classList.add("cartItemLayout");
     valueOfCart = Number(cartValue.textContent);
     cartValue.innerHTML = ++valueOfCart;
     cartContainer.classList.add("cartContainerFocus");
+    cartContainer
+      .appendChild(insertItem)
+      .appendChild(
+        p
+      ).textContent = `${products[index].name}, $${products[index].price}`;
+    insertItem.classList.add(`item-${index}`);
     closeBtn[index].style.display = "block";
-    let insertProduct = `<div class="cartItemLayout"><p>${products[index].name}</p></div>`;
-    cartContainer.insertAdjacentHTML("afterbegin", insertProduct);
   })
 );
 
@@ -82,12 +87,14 @@ itemsBtn.map((el, index) =>
 const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
 closeBtn.map((el, index) => {
   el.addEventListener("click", () => {
-    console.log("Clicked");
+    let listItem = document.querySelector(`.item-${index}`);
     if (valueOfCart >= 1) {
       cartValue.innerHTML = --valueOfCart;
+      listItem.remove();
     }
     if (valueOfCart === 0) {
       closeBtn[index].style.display = "none";
+      cartContainer.classList.remove("cartContainerFocus");
     }
   });
 });
