@@ -215,3 +215,10 @@ p {
 .showBtn {
   display: block;
 }
+
+.mobileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}

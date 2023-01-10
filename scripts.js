@@ -30,6 +30,15 @@ const items = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
 
+//mobile layout
+addEventListener("resize", function () {
+  let windowWidth = window.innerWidth;
+  if (windowWidth <= 425) {
+    items.classList.remove("productsContainer");
+    items.classList.add("mobileContainer");
+  }
+});
+
 let valueOfCart = 0;
 const loadProducts = function () {
   products.forEach((el, i) => {
@@ -65,6 +74,7 @@ loadProducts();
 
 //Adding products to cart function
 const itemsBtn = Array.from(document.getElementsByTagName("button"));
+let productsAdded = [];
 itemsBtn.map((el, index) =>
   el.addEventListener("click", () => {
     const insertItem = document.createElement("div");
@@ -80,6 +90,8 @@ itemsBtn.map((el, index) =>
       ).textContent = `${products[index].name}, $${products[index].price}`;
     insertItem.classList.add(`item-${index}`);
     closeBtn[index].style.display = "block";
+    productsAdded.push(`${products[index].name}`);
+    console.log(productsAdded);
   })
 );
 
@@ -88,13 +100,18 @@ const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
 closeBtn.map((el, index) => {
   el.addEventListener("click", () => {
     let listItem = document.querySelector(`.item-${index}`);
+    let locateIndex = productsAdded.indexOf(products[index].name);
+    productsAdded.splice(locateIndex, 1);
+    console.log(productsAdded);
     if (valueOfCart >= 1) {
       cartValue.innerHTML = --valueOfCart;
       listItem.remove();
     }
     if (valueOfCart === 0) {
-      closeBtn[index].style.display = "none";
       cartContainer.classList.remove("cartContainerFocus");
+    }
+    if (productsAdded.length === 0) {
+      closeBtn[index].style.display = "none";
     }
   });
 });
