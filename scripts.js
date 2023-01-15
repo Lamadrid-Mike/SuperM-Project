@@ -110,7 +110,6 @@ closeBtn.map((el, index) => {
 //Mobile layout
 addEventListener("resize", function () {
   let windowSize = window.innerWidth;
-  console.log(windowSize);
   if (windowSize <= 710) {
     product.classList.remove("mainContainer");
     product.classList.add("mobileContainer");
