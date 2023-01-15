@@ -1,9 +1,9 @@
 body {
   font-family: "Architects Daughter";
   background-color: black;
+  grid-template-columns: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 10% 20% 70%;
+  grid-template-rows: 10% 10% 80%;
 }
 
 .navContainer {
@@ -91,14 +91,11 @@ p {
 
 .products h1,
 p {
+  text-align: center;
   color: whitesmoke;
 }
 
-.products h1 {
-  text-align: left;
-  margin-left: 1em;
-}
-.productsContainer {
+.mainContainer {
   grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 3;
@@ -148,7 +145,7 @@ p {
 
 .itemsLayout {
   display: grid;
-  grid-template-columns: 40% 40% 20%;
+  grid-template-columns: 40% 30% 30%;
   grid-template-rows: 80% 20%;
   border: 2px solid #00ffff;
   border-radius: 25px;
@@ -163,11 +160,12 @@ p {
   height: 40px;
   border-style: none;
   border-radius: 10px;
-  align-self: end;
+  align-self: center;
+  justify-self: center;
   margin-bottom: 15px;
   grid-column-start: 3;
-  grid-column-end: 3;
-  grid-row-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 1;
   grid-row-end: 3;
   cursor: pointer;
 }
@@ -196,11 +194,12 @@ p {
 
 .closeBtn {
   display: none;
+  justify-self: center;
   color: whitesmoke;
   grid-column-start: 3;
   grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 1;
+  grid-row-start: 2;
+  grid-row-end: 2;
   font-size: 1.5em;
   cursor: pointer;
 }
@@ -219,6 +218,5 @@ p {
 .mobileContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
+  gap: 0.5em;
 }
