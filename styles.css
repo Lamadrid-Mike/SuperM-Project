@@ -4,6 +4,18 @@ body {
   grid-template-columns: 100%;
   display: grid;
   grid-template-rows: 10% 10% 80%;
+  animation: fadeInAnimation ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .navContainer {
@@ -196,7 +208,6 @@ p {
 }
 
 .closeBtn {
-  display: none;
   justify-self: center;
   color: whitesmoke;
   grid-column-start: 3;

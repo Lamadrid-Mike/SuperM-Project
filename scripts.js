@@ -30,7 +30,6 @@ const product = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
 
-let valueOfCart = 0;
 const loadProducts = function () {
   products.forEach((el, i) => {
     const p = document.createElement("p");
@@ -63,51 +62,39 @@ const loadProducts = function () {
 };
 loadProducts();
 
-//Adding products to cart function
+// Adding products to cart function
 const itemsBtn = Array.from(document.getElementsByTagName("button"));
 let productsAdded = [];
-itemsBtn.map((el, index) =>
-  el.addEventListener("click", () => {
-    const insertItem = document.createElement("div");
+itemsBtn.forEach((el, index) =>
+  el.addEventListener("click", function () {
     const p = document.createElement("p");
-    insertItem.classList.add("cartItemLayout");
-    valueOfCart = Number(cartValue.textContent);
-    cartValue.innerHTML = ++valueOfCart;
+    p.setAttribute("id", `${products[index].name}`);
+    cartValue.textContent = productsAdded.length + 1;
     cartContainer.classList.add("cartContainerFocus");
-    cartContainer
-      .appendChild(insertItem)
-      .appendChild(
-        p
-      ).textContent = `${products[index].name}, $${products[index].price}`;
-    insertItem.classList.add(`item-${index}`);
-    closeBtn[index].style.display = "block";
-    productsAdded.push(`${products[index].name}`);
+    productsAdded.push(products[index].name);
+    productsAdded.forEach((el) => {
+      cartContainer.appendChild(p).textContent = el;
+    });
     console.log(productsAdded);
   })
 );
 
-//Close btn function
+// Close btn function
 const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
-closeBtn.map((el, index) => {
-  el.addEventListener("click", () => {
-    let listItem = document.querySelector(`.item-${index}`);
-    let locateIndex = productsAdded.indexOf(products[index].name);
-    productsAdded.splice(locateIndex, 1);
+closeBtn.forEach((btn, index) => {
+  btn.addEventListener("click", function () {
+    if (productsAdded.includes(products[index].name)) {
+      let itemToDelete = productsAdded.indexOf(products[index].name);
+      productsAdded.splice(itemToDelete, 1);
+      let nodeRemove = document.getElementById(`${products[index].name}`);
+      cartContainer.removeChild(nodeRemove);
+    }
     console.log(productsAdded);
-    if (valueOfCart >= 1) {
-      cartValue.innerHTML = --valueOfCart;
-      listItem.remove();
-    }
-    if (valueOfCart === 0) {
-      cartContainer.classList.remove("cartContainerFocus");
-    }
-    if (productsAdded.length === 0) {
-      closeBtn[index].style.display = "none";
-    }
+    cartValue.textContent = productsAdded.length;
   });
 });
 
-//Mobile layout
+// Mobile layout
 addEventListener("resize", function () {
   let windowSize = window.innerWidth;
   if (windowSize <= 710) {
