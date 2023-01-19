@@ -30,6 +30,10 @@ const product = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
 
+cartValue.addEventListener("click", function (e) {
+  e.preventDefault();
+});
+
 const loadProducts = function () {
   products.forEach((el, i) => {
     const p = document.createElement("p");
@@ -64,13 +68,18 @@ loadProducts();
 
 // Adding products to cart function
 const itemsBtn = Array.from(document.getElementsByTagName("button"));
+
 let productsAdded = [];
 itemsBtn.forEach((el, index) =>
   el.addEventListener("click", function () {
     const p = document.createElement("p");
     p.setAttribute("id", `${products[index].name}`);
     cartValue.textContent = productsAdded.length + 1;
+    if (cartContainer.classList.contains("cartContainerOutFocus")) {
+      cartContainer.classList.remove("cartContainerOutFocus");
+    }
     cartContainer.classList.add("cartContainerFocus");
+    closeBtn[index].classList.add("showBtn");
     productsAdded.push(products[index].name);
     productsAdded.forEach((el) => {
       cartContainer.appendChild(p).textContent = el;
@@ -88,6 +97,15 @@ closeBtn.forEach((btn, index) => {
       productsAdded.splice(itemToDelete, 1);
       let nodeRemove = document.getElementById(`${products[index].name}`);
       cartContainer.removeChild(nodeRemove);
+    }
+    if (!productsAdded.includes(products[index].name)) {
+      closeBtn[index].classList.remove("showBtn");
+    }
+    if (productsAdded.length === 0) {
+      cartContainer.classList.remove("cartContainerFocus");
+    }
+    if (!cartContainer.classList.contains("cartContainerFocus")) {
+      cartContainer.classList.add("cartContainerOutFocus");
     }
     console.log(productsAdded);
     cartValue.textContent = productsAdded.length;
