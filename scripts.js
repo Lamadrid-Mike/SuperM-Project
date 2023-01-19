@@ -75,9 +75,9 @@ itemsBtn.forEach((el, index) =>
     const p = document.createElement("p");
     p.setAttribute("id", `${products[index].name}`);
     cartValue.textContent = productsAdded.length + 1;
-    if (cartContainer.classList.contains("cartContainerOutFocus")) {
+    cartContainer.classList.contains("cartContainerOutFocus") &&
       cartContainer.classList.remove("cartContainerOutFocus");
-    }
+
     cartContainer.classList.add("cartContainerFocus");
     closeBtn[index].classList.add("showBtn");
     productsAdded.push(products[index].name);
