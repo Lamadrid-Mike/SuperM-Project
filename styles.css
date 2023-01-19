@@ -1,3 +1,7 @@
+:root {
+  --main-cart-color: #e86f68;
+}
+
 body {
   font-family: "Architects Daughter";
   background-color: black;
@@ -48,7 +52,7 @@ body {
 .cart {
   padding: 5px 18px 5px 18px;
   border-radius: 3px;
-  background-color: #ff6600;
+  background-color: var(--main-cart-color);
 }
 
 .cart:hover {
@@ -196,7 +200,7 @@ p {
 
 .cartContainerFocus {
   border: 3px solid;
-  border-color: #ff6600;
+  border-color: var(--main-cart-color);
   border-radius: 10px;
   transition: border-color, 220ms;
   transition-timing-function: ease-in;
