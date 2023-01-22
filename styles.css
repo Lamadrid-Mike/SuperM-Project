@@ -196,22 +196,15 @@ p {
   grid-template-columns: 100%;
   grid-template-rows: repeat(4, 25%);
   overflow: hidden;
+  transition: border 0.5s, border-radius 0.8s, visibility, 0.5s;
+  border: 3px solid black;
+  visibility: hidden;
 }
 
 .cartContainerFocus {
-  border: 3px solid;
-  border-color: var(--main-cart-color);
+  visibility: visible;
+  border: 3px solid var(--main-cart-color);
   border-radius: 10px;
-  transition: border-color, 220ms;
-  transition-timing-function: ease-in;
-}
-
-.cartContainerOutFocus {
-  border: 3px solid;
-  border-radius: 10px;
-  border-color: black;
-  transition: border-color, 220ms;
-  transition-timing-function: ease-in;
 }
 
 .closeBtn {

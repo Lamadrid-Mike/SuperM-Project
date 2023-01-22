@@ -75,8 +75,6 @@ itemsBtn.forEach((el, index) =>
     const p = document.createElement("p");
     p.setAttribute("id", `${products[index].name}`);
     cartValue.textContent = productsAdded.length + 1;
-    cartContainer.classList.contains("cartContainerOutFocus") &&
-      cartContainer.classList.remove("cartContainerOutFocus");
 
     cartContainer.classList.add("cartContainerFocus");
     closeBtn[index].classList.add("showBtn");
@@ -103,9 +101,6 @@ closeBtn.forEach((btn, index) => {
     }
     if (productsAdded.length === 0) {
       cartContainer.classList.remove("cartContainerFocus");
-    }
-    if (!cartContainer.classList.contains("cartContainerFocus")) {
-      cartContainer.classList.add("cartContainerOutFocus");
     }
     console.log(productsAdded);
     cartValue.textContent = productsAdded.length;
