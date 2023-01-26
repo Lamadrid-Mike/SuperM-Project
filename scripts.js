@@ -74,14 +74,15 @@ itemsBtn.forEach((el, index) =>
   el.addEventListener("click", function () {
     const p = document.createElement("p");
     p.setAttribute("id", `${products[index].name}`);
-    cartValue.textContent = productsAdded.length + 1;
-
     cartContainer.classList.add("cartContainerFocus");
     closeBtn[index].classList.add("showBtn");
-    productsAdded.push(products[index].name);
-    productsAdded.forEach((el) => {
-      cartContainer.appendChild(p).textContent = el;
-    });
+    if (!productsAdded.includes(products[index].name)) {
+      cartValue.textContent = productsAdded.length + 1;
+      productsAdded.push(products[index].name);
+      productsAdded.forEach((el) => {
+        cartContainer.appendChild(p).textContent = el;
+      });
+    }
     console.log(productsAdded);
   })
 );

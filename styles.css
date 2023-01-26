@@ -201,6 +201,10 @@ p {
   visibility: hidden;
 }
 
+.cartContainer p {
+  align-self: center;
+}
+
 .cartContainerFocus {
   visibility: visible;
   border: 3px solid var(--main-cart-color);
@@ -232,4 +236,10 @@ p {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .cartContainer {
+    display: none;
+  }
 }
