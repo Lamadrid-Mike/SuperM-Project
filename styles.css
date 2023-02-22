@@ -157,7 +157,6 @@ p {
 }
 
 .itemsLayout {
-  width: 100%;
   max-width: 400px;
   min-width: 260px;
   display: grid;
