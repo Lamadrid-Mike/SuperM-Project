@@ -3,23 +3,14 @@
 }
 
 body {
-  font-family: "Architects Daughter";
   background-color: black;
+  font-family: "Architects Daughter";
+}
+
+.main-container {
   grid-template-columns: 50% 50%;
   display: grid;
   grid-template-rows: 10% 20% 400px;
-  animation: fadeInAnimation ease 0.2s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .navContainer {
@@ -241,4 +232,12 @@ p {
   .cartContainer {
     display: none;
   }
+}
+
+td,
+th {
+  color: white;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }

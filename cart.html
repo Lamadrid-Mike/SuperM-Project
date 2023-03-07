@@ -11,10 +11,10 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <script defer src="/scripts.js"></script>
-    <title>/Products</title>
+    <title>Cart</title>
   </head>
   <body>
-    <main class="main-container">
+    <main>
       <nav class="navContainer">
         <h1 class="logo">SuperM</h1>
         <nav class="links">
@@ -25,24 +25,21 @@
           >
         </nav>
       </nav>
-      <div class="products">
-        <h1>Products</h1>
-        <p>Take a look at our products</p>
-      </div>
-      <div class="cartContainer"></div>
-      <div class="productsContainer mainContainer">
-        <!--<div class="item1 itemsLayout">
-          <img class="centerDivs" src="/cheese.png" width="150" height="150" />
-          <div class="centerDivs">
-            <p>Cheese</p>
-            <p>200gm</p>
-          </div>
-          <span class="closeBtn centerDivs">x</span>
-          <button type="submit" class="itemsBtn itemOne">$10</button>
-        </div>-->
-      </div>
+      <table class="cart-table">
+        <tr>
+          <th>Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+          <td>$500</td>
+        </tr>
+        <tr></tr>
+      </table>
     </main>
-
-    <script src="/scripts.js"></script>
   </body>
 </html>

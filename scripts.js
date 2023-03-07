@@ -29,10 +29,7 @@ const products = [
 const product = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
-
-cartValue.addEventListener("click", function (e) {
-  e.preventDefault();
-});
+const cartTable = document.querySelector(".cart-table");
 
 const loadProducts = function () {
   products.forEach((el, i) => {
@@ -66,26 +63,50 @@ const loadProducts = function () {
 };
 loadProducts();
 
-// Adding products to cart function
-const itemsBtn = Array.from(document.getElementsByTagName("button"));
+class Cart {
+  constructor(name, price, quantity = 0) {
+    (this.name = name), (this.price = price), (this.quantity = quantity);
+  }
+}
 
+const itemsBtn = Array.from(document.getElementsByTagName("button"));
 let productsAdded = [];
-itemsBtn.forEach((el, index) =>
-  el.addEventListener("click", function () {
+
+// Adding products to cart function
+itemsBtn.forEach((btn, index) =>
+  btn.addEventListener("click", function () {
     const p = document.createElement("p");
     p.setAttribute("id", `${products[index].name}`);
     cartContainer.classList.add("cartContainerFocus");
     closeBtn[index].classList.add("showBtn");
-    if (!productsAdded.includes(products[index].name)) {
+
+    if (!productsAdded.some((pro) => pro.name === products[index].name)) {
       cartValue.textContent = productsAdded.length + 1;
-      productsAdded.push(products[index].name);
+      productsAdded.push(
+        new Cart(products[index].name, products[index].price, 1)
+      );
       productsAdded.forEach((el) => {
-        cartContainer.appendChild(p).textContent = el;
+        cartContainer.appendChild(p).textContent = el.name;
       });
     }
-    console.log(productsAdded);
   })
 );
+
+cartValue.addEventListener("click", function (e) {
+  e.preventDefault();
+  productsAdded.forEach((el) => {
+    console.log("clicked");
+    const html = `
+    <tr>
+      <td>${el.name}</td>
+      <td>${el.price}</td>
+      <td>${el.quantity}</td>
+      <td>${el.quantity}0</td>
+  </tr>
+    `;
+    cartTable.insertAdjacentHTML("beforeend", html);
+  });
+});
 
 // Close btn function
 const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
