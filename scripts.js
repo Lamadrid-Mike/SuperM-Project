@@ -29,7 +29,6 @@ const products = [
 const product = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
-const cartTable = document.querySelector(".cart-table");
 
 const loadProducts = function () {
   products.forEach((el, i) => {
@@ -60,74 +59,63 @@ const loadProducts = function () {
     div.appendChild(span).textContent = "x";
     div.appendChild(button).textContent = `${el.price}`;
   });
-};
-loadProducts();
 
-class Cart {
-  constructor(name, price, quantity = 0) {
-    (this.name = name), (this.price = price), (this.quantity = quantity);
+  // Adding products to cart function
+  const itemsBtn = Array.from(document.getElementsByTagName("button"));
+
+  let productsAdded = [];
+
+  class Cart {
+    constructor(name, price, quantity = 0) {
+      (this.name = name), (this.price = price), (this.quantity = quantity);
+    }
   }
-}
 
-const itemsBtn = Array.from(document.getElementsByTagName("button"));
-let productsAdded = [];
+  itemsBtn.forEach((btn, index) =>
+    btn.addEventListener("click", function () {
+      const p = document.createElement("p");
+      p.setAttribute("id", `${products[index].name}`);
+      cartContainer.classList.add("cartContainerFocus");
+      closeBtn[index].classList.add("showBtn");
+      if (!productsAdded.some((pro) => pro.name === products[index].name)) {
+        cartValue.textContent = productsAdded.length + 1;
+        productsAdded.push(
+          new Cart(products[index].name, products[index].price, 1)
+        );
+        localStorage.setItem("cart-data", JSON.stringify(productsAdded));
+        productsAdded.forEach((el) => {
+          cartContainer.appendChild(p).textContent = el.name;
+        });
+      }
+      console.log(productsAdded);
+    })
+  );
 
-// Adding products to cart function
-itemsBtn.forEach((btn, index) =>
-  btn.addEventListener("click", function () {
-    const p = document.createElement("p");
-    p.setAttribute("id", `${products[index].name}`);
-    cartContainer.classList.add("cartContainerFocus");
-    closeBtn[index].classList.add("showBtn");
-
-    if (!productsAdded.some((pro) => pro.name === products[index].name)) {
-      cartValue.textContent = productsAdded.length + 1;
-      productsAdded.push(
-        new Cart(products[index].name, products[index].price, 1)
-      );
-      productsAdded.forEach((el) => {
-        cartContainer.appendChild(p).textContent = el.name;
-      });
-    }
-  })
-);
-
-cartValue.addEventListener("click", function (e) {
-  e.preventDefault();
-  productsAdded.forEach((el) => {
-    console.log("clicked");
-    const html = `
-    <tr>
-      <td>${el.name}</td>
-      <td>${el.price}</td>
-      <td>${el.quantity}</td>
-      <td>${el.quantity}0</td>
-  </tr>
-    `;
-    cartTable.insertAdjacentHTML("beforeend", html);
+  // Close btn function
+  const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
+  closeBtn.forEach((btn, index) => {
+    btn.addEventListener("click", function () {
+      if (productsAdded.includes(products[index].name)) {
+        let itemToDelete = productsAdded.indexOf(products[index].name);
+        productsAdded.splice(itemToDelete, 1);
+        let nodeRemove = document.getElementById(`${products[index].name}`);
+        cartContainer.removeChild(nodeRemove);
+      }
+      if (!productsAdded.includes(products[index].name)) {
+        closeBtn[index].classList.remove("showBtn");
+      }
+      if (productsAdded.length === 0) {
+        cartContainer.classList.remove("cartContainerFocus");
+      }
+      console.log(productsAdded);
+      cartValue.textContent = productsAdded.length;
+    });
   });
-});
+};
 
-// Close btn function
-const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
-closeBtn.forEach((btn, index) => {
-  btn.addEventListener("click", function () {
-    if (productsAdded.includes(products[index].name)) {
-      let itemToDelete = productsAdded.indexOf(products[index].name);
-      productsAdded.splice(itemToDelete, 1);
-      let nodeRemove = document.getElementById(`${products[index].name}`);
-      cartContainer.removeChild(nodeRemove);
-    }
-    if (!productsAdded.includes(products[index].name)) {
-      closeBtn[index].classList.remove("showBtn");
-    }
-    if (productsAdded.length === 0) {
-      cartContainer.classList.remove("cartContainerFocus");
-    }
-    console.log(productsAdded);
-    cartValue.textContent = productsAdded.length;
-  });
-});
+addEventListener("load", loadProducts);
+
+export let cache = JSON.parse(localStorage.getItem("cart-data"));
 
 // Mobile layout
 addEventListener("resize", function () {

@@ -241,3 +241,9 @@ th {
   text-align: left;
   padding: 8px;
 }
+
+.table-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
