@@ -246,4 +246,14 @@ th {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin: 1em;
+}
+
+.pay-btn {
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: #e86f68;
+  border-radius: 5px;
+  border: none;
 }

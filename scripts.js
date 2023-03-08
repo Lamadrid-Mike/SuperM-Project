@@ -30,6 +30,8 @@ const product = document.querySelector(".productsContainer");
 const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
 
+export let cache = JSON.parse(localStorage.getItem("cart-data"));
+
 const loadProducts = function () {
   products.forEach((el, i) => {
     const p = document.createElement("p");
@@ -87,7 +89,6 @@ const loadProducts = function () {
           cartContainer.appendChild(p).textContent = el.name;
         });
       }
-      console.log(productsAdded);
     })
   );
 
@@ -95,27 +96,24 @@ const loadProducts = function () {
   const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
   closeBtn.forEach((btn, index) => {
     btn.addEventListener("click", function () {
-      if (productsAdded.includes(products[index].name)) {
+      if (productsAdded.some((pro) => pro.name === products[index].name)) {
         let itemToDelete = productsAdded.indexOf(products[index].name);
         productsAdded.splice(itemToDelete, 1);
         let nodeRemove = document.getElementById(`${products[index].name}`);
         cartContainer.removeChild(nodeRemove);
       }
-      if (!productsAdded.includes(products[index].name)) {
+      if (!productsAdded.some((pro) => pro.name === products[index].name)) {
         closeBtn[index].classList.remove("showBtn");
       }
       if (productsAdded.length === 0) {
         cartContainer.classList.remove("cartContainerFocus");
       }
-      console.log(productsAdded);
       cartValue.textContent = productsAdded.length;
     });
   });
 };
 
 addEventListener("load", loadProducts);
-
-export let cache = JSON.parse(localStorage.getItem("cart-data"));
 
 // Mobile layout
 addEventListener("resize", function () {

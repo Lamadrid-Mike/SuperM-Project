@@ -1,7 +1,8 @@
 import { cache } from "./scripts.js";
 const cartTable = document.querySelector(".cart-table");
 const payBtn = document.querySelector(".cart-pay-btn");
-console.log(cache);
+const cartValue = document.querySelector(".cartValue");
+cartValue.textContent = cache.length;
 
 addEventListener("load", function () {
   cache.forEach((el) => {
