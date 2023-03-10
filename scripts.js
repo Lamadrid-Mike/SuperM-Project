@@ -68,8 +68,11 @@ const loadProducts = function () {
   let productsAdded = [];
 
   class Cart {
-    constructor(name, price, quantity = 0) {
-      (this.name = name), (this.price = price), (this.quantity = quantity);
+    constructor(name, price, quantity = 0, weight) {
+      (this.name = name),
+        (this.price = price),
+        (this.quantity = quantity),
+        (this.weight = weight);
     }
   }
 
@@ -82,7 +85,12 @@ const loadProducts = function () {
       if (!productsAdded.some((pro) => pro.name === products[index].name)) {
         cartValue.textContent = productsAdded.length + 1;
         productsAdded.push(
-          new Cart(products[index].name, products[index].price, 1)
+          new Cart(
+            products[index].name,
+            products[index].price,
+            1,
+            products[index].weight
+          )
         );
         localStorage.setItem("cart-data", JSON.stringify(productsAdded));
         productsAdded.forEach((el) => {
@@ -94,20 +102,23 @@ const loadProducts = function () {
 
   // Close btn function
   const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
+
   closeBtn.forEach((btn, index) => {
     btn.addEventListener("click", function () {
-      if (productsAdded.some((pro) => pro.name === products[index].name)) {
-        let itemToDelete = productsAdded.indexOf(products[index].name);
-        productsAdded.splice(itemToDelete, 1);
-        let nodeRemove = document.getElementById(`${products[index].name}`);
-        cartContainer.removeChild(nodeRemove);
-      }
+      productsAdded.forEach((pro, position) => {
+        if (pro.name === products[index].name) {
+          productsAdded.splice(position, 1);
+          let nodeRemove = document.getElementById(`${products[index].name}`);
+          cartContainer.removeChild(nodeRemove);
+          localStorage.setItem("cart-data", JSON.stringify(productsAdded));
+        }
+      });
       if (!productsAdded.some((pro) => pro.name === products[index].name)) {
         closeBtn[index].classList.remove("showBtn");
       }
-      if (productsAdded.length === 0) {
-        cartContainer.classList.remove("cartContainerFocus");
-      }
+      productsAdded.length === 0
+        ? cartContainer.classList.remove("cartContainerFocus")
+        : "";
       cartValue.textContent = productsAdded.length;
     });
   });
