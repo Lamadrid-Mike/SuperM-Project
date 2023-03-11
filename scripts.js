@@ -3,13 +3,13 @@ const products = [
     name: "Cheese",
     weight: "200g",
     type: "Block",
-    price: 10,
+    price: 10.0,
     src: "/cheese.png",
   },
   {
     name: "Milk",
     weight: "200ml",
-    price: 5,
+    price: 5.0,
     src: "/milk.png",
   },
   {
@@ -31,6 +31,8 @@ const cartValue = document.querySelector(".cartValue");
 const cartContainer = document.querySelector(".cartContainer");
 
 export let cache = JSON.parse(localStorage.getItem("cart-data"));
+let productsAdded = [];
+let closeBtn;
 
 const loadProducts = function () {
   products.forEach((el, i) => {
@@ -62,10 +64,7 @@ const loadProducts = function () {
     div.appendChild(button).textContent = `${el.price}`;
   });
 
-  // Adding products to cart function
   const itemsBtn = Array.from(document.getElementsByTagName("button"));
-
-  let productsAdded = [];
 
   class Cart {
     constructor(name, price, quantity = 0, weight) {
@@ -76,13 +75,26 @@ const loadProducts = function () {
     }
   }
 
+  if (cache !== null) {
+    cache.forEach((el, ind) => {
+      const p = document.createElement("p");
+      productsAdded.push(el);
+      cartContainer.classList.add("cartContainerFocus");
+      cartContainer.appendChild(p).textContent = el.name;
+      cartValue.textContent = cache.length;
+    });
+  }
+
+  console.log(productsAdded);
+
+  // Adding products to cart function
   itemsBtn.forEach((btn, index) =>
     btn.addEventListener("click", function () {
-      const p = document.createElement("p");
-      p.setAttribute("id", `${products[index].name}`);
-      cartContainer.classList.add("cartContainerFocus");
-      closeBtn[index].classList.add("showBtn");
       if (!productsAdded.some((pro) => pro.name === products[index].name)) {
+        const p = document.createElement("p");
+        p.setAttribute("id", `${products[index].name}`);
+        cartContainer.classList.add("cartContainerFocus");
+        closeBtn[index].classList.add("showBtn");
         cartValue.textContent = productsAdded.length + 1;
         productsAdded.push(
           new Cart(
@@ -101,8 +113,7 @@ const loadProducts = function () {
   );
 
   // Close btn function
-  const closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
-
+  closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
   closeBtn.forEach((btn, index) => {
     btn.addEventListener("click", function () {
       productsAdded.forEach((pro, position) => {

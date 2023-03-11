@@ -246,7 +246,8 @@ th {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 1em;
+  align-items: center;
+  gap: 1em;
 }
 
 .pay-btn {
