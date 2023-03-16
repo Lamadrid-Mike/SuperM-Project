@@ -75,17 +75,23 @@ const loadProducts = function () {
     }
   }
 
+  const showBtn = function (el) {
+    closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
+    closeBtn[index].classList.add("showBtn");
+  };
+
   if (cache !== null) {
     cache.forEach((el, ind) => {
-      const p = document.createElement("p");
       productsAdded.push(el);
+      console.log(productsAdded);
+      const p = document.createElement("p");
       cartContainer.classList.add("cartContainerFocus");
       cartContainer.appendChild(p).textContent = el.name;
+      p.setAttribute("id", `${products[ind].name}`);
       cartValue.textContent = cache.length;
+      showBtn(el);
     });
   }
-
-  console.log(productsAdded);
 
   // Adding products to cart function
   itemsBtn.forEach((btn, index) =>
@@ -94,7 +100,7 @@ const loadProducts = function () {
         const p = document.createElement("p");
         p.setAttribute("id", `${products[index].name}`);
         cartContainer.classList.add("cartContainerFocus");
-        closeBtn[index].classList.add("showBtn");
+        showBtn(index);
         cartValue.textContent = productsAdded.length + 1;
         productsAdded.push(
           new Cart(
@@ -112,8 +118,8 @@ const loadProducts = function () {
     })
   );
 
-  // Close btn function
   closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
+  // Close btn function
   closeBtn.forEach((btn, index) => {
     btn.addEventListener("click", function () {
       productsAdded.forEach((pro, position) => {
