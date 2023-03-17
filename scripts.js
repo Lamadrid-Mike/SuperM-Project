@@ -75,21 +75,25 @@ const loadProducts = function () {
     }
   }
 
-  const showBtn = function (el) {
+  const showCloseBtn = function (el) {
     closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
-    closeBtn[index].classList.add("showBtn");
+    let match = el.name;
+    products.find((el, index) => {
+      if (el.name === match) {
+        closeBtn[index].classList.add("showBtn");
+        const p = document.createElement("p");
+        p.setAttribute("id", `${products[index].name}`);
+        cartContainer.classList.add("cartContainerFocus");
+        cartContainer.appendChild(p).textContent = el.name;
+      }
+    });
   };
 
   if (cache !== null) {
-    cache.forEach((el, ind) => {
+    cache.forEach((el) => {
       productsAdded.push(el);
-      console.log(productsAdded);
-      const p = document.createElement("p");
-      cartContainer.classList.add("cartContainerFocus");
-      cartContainer.appendChild(p).textContent = el.name;
-      p.setAttribute("id", `${products[ind].name}`);
       cartValue.textContent = cache.length;
-      showBtn(el);
+      showCloseBtn(el);
     });
   }
 
@@ -97,10 +101,7 @@ const loadProducts = function () {
   itemsBtn.forEach((btn, index) =>
     btn.addEventListener("click", function () {
       if (!productsAdded.some((pro) => pro.name === products[index].name)) {
-        const p = document.createElement("p");
-        p.setAttribute("id", `${products[index].name}`);
-        cartContainer.classList.add("cartContainerFocus");
-        showBtn(index);
+        showCloseBtn(products[index]);
         cartValue.textContent = productsAdded.length + 1;
         productsAdded.push(
           new Cart(
@@ -118,8 +119,8 @@ const loadProducts = function () {
     })
   );
 
-  closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
   // Close btn function
+  closeBtn = Array.from(document.getElementsByTagName("closeBtn"));
   closeBtn.forEach((btn, index) => {
     btn.addEventListener("click", function () {
       productsAdded.forEach((pro, position) => {
