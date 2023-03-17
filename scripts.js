@@ -143,16 +143,3 @@ const loadProducts = function () {
 };
 
 addEventListener("load", loadProducts);
-
-// Mobile layout
-addEventListener("resize", function () {
-  let windowSize = window.innerWidth;
-  if (windowSize <= 710) {
-    product.classList.remove("mainContainer");
-    product.classList.add("mobileContainer");
-  }
-  if (windowSize >= 710) {
-    product.classList.add("mainContainer");
-    product.classList.remove("mobileContainer");
-  }
-});
