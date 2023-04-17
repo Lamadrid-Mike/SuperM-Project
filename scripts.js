@@ -30,7 +30,7 @@ const productsContainer = document.querySelector(".productsContainer");
 const hiddenCartContainer = document.querySelector(".cartContainer");
 const cartValue = document.querySelector(".cartValue");
 
-let productsAdded = [];
+export let productsAdded = [];
 let cartContainerNames = [];
 let closeBtn;
 
@@ -82,7 +82,6 @@ const loadProducts = function () {
       p.innerHTML = productName;
       hiddenCartContainer.classList.add("cartContainerFocus");
       hiddenCartContainer.append(p);
-      console.log(cartContainerNames);
     }
   };
 
@@ -118,6 +117,15 @@ const loadProducts = function () {
       displayCartContainer(products[productId].name);
       displayCartValue();
       showCloseBtn(productId);
+      productsAdded.push(
+        new Cart(
+          products[productId].name,
+          products[productId].price,
+          1,
+          products[productId].weight
+        )
+      );
+      localStorage.setItem("productsAdded", JSON.stringify(productsAdded));
     }
     if (e.target.classList.contains("closeBtn")) {
       productId = e.target.getAttribute("id");

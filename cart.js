@@ -1,4 +1,3 @@
-import { cache } from "./scripts.js";
 const cartTable = document.querySelector(".cart-table");
 const payBtn = document.querySelector(".cart-pay-btn");
 const cartValue = document.querySelector(".cartValue");
@@ -9,10 +8,13 @@ const currencyOptions = {
   currency: "USD",
 };
 
-if (cache !== null) {
-  cartValue.textContent = cache.length;
-  let finalPrice = cache.reduce((acc, curr) => acc + curr.price, 0);
-  cache.forEach((el) => {
+let data = localStorage.getItem("productsAdded");
+let productsAdded = JSON.parse(data);
+
+if (productsAdded !== null) {
+  cartValue.textContent = productsAdded.length;
+  let finalPrice = productsAdded.reduce((acc, curr) => acc + curr.price, 0);
+  productsAdded.forEach((el) => {
     const html = `
         <tr>
           <td>${el.name}</td>
