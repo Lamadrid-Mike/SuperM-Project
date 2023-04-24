@@ -65,9 +65,13 @@ const loadProducts = function () {
     div.appendChild(button).textContent = `${el.price}`;
   });
 
+  let storage = localStorage.getItem("productsAdded");
+  let loadedData = JSON.parse(storage);
+
   class Cart {
-    constructor(name, price, quantity = 0, weight) {
-      (this.name = name),
+    constructor(id, name, price, quantity = 0, weight) {
+      (this.id = id),
+        (this.name = name),
         (this.price = price),
         (this.quantity = quantity),
         (this.weight = weight);
@@ -82,6 +86,8 @@ const loadProducts = function () {
       p.innerHTML = productName;
       hiddenCartContainer.classList.add("cartContainerFocus");
       hiddenCartContainer.append(p);
+    } else {
+      console.log(productsAdded);
     }
   };
 
@@ -110,27 +116,41 @@ const loadProducts = function () {
     }
   };
 
+  const addToLocalStorage = (product) => {
+    localStorage.setItem("productsAdded", JSON.stringify(product));
+  };
+
+  if (loadedData !== null) {
+    loadedData.forEach((el) => {
+      displayCartContainer(el.name);
+      showCloseBtn(el.id);
+      productsAdded.push(el);
+    });
+  }
+
   productsContainer.addEventListener("click", function (e) {
-    let productId;
     if (e.target.classList.contains("itemsBtn")) {
-      productId = e.target.getAttribute("id");
+      let productId = e.target.getAttribute("id");
       displayCartContainer(products[productId].name);
       displayCartValue();
       showCloseBtn(productId);
       productsAdded.push(
         new Cart(
+          productId,
           products[productId].name,
           products[productId].price,
           1,
           products[productId].weight
         )
       );
-      localStorage.setItem("productsAdded", JSON.stringify(productsAdded));
+      addToLocalStorage(productsAdded);
     }
     if (e.target.classList.contains("closeBtn")) {
-      productId = e.target.getAttribute("id");
+      let productId = e.target.getAttribute("id");
       hideCloseBtn(productId);
       cartContainerRemoval(productId);
+      let filteredProducts = productsAdded.filter((el) => el.id !== productId);
+      addToLocalStorage(filteredProducts);
     }
   });
 };

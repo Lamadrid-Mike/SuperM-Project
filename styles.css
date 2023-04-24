@@ -63,8 +63,8 @@ body {
 
 .secondContainer .grid1 {
   grid-column-start: 1;
-  justify-self: center;
-  align-self: center;
+  text-align: center;
+  margin: 1em;
 }
 
 .secondContainer .grid2 {
@@ -75,6 +75,7 @@ body {
 
 .secondContainer h1,
 p {
+  text-align: center;
   color: whitesmoke;
   font-size: 1.4em;
 }
@@ -93,7 +94,8 @@ p {
 
 .secondContainer img {
   border-radius: 30px;
-  max-width: 500px;
+  width: 100%;
+  max-width: 350px;
   height: auto;
 }
 
@@ -101,6 +103,7 @@ p {
 p {
   text-align: center;
   color: whitesmoke;
+  margin: 1em;
 }
 
 .mainContainer {
@@ -225,6 +228,10 @@ p {
 @media screen and (max-width: 710px) {
   .cartContainer {
     display: none;
+  }
+
+  .secondContainer .btn {
+    text-align: right;
   }
 
   .main-container {

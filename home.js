@@ -1,7 +1,8 @@
-import { cache } from "./scripts.js";
+let numberCart = localStorage.getItem("productsAdded");
+let number = JSON.parse(numberCart);
+
 const cartValue = document.querySelector(".value");
 
-if (cache !== null) {
-  cartValue.textContent = cache.length;
-  console.log(cache);
+if (number !== null) {
+  cartValue.textContent = number.length;
 }
