@@ -58,7 +58,8 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(1, 50%);
-  margin: 2em;
+  margin-left: 4em;
+  margin-right: 4em;
 }
 
 .secondContainer .grid1 {
@@ -93,9 +94,9 @@ p {
 }
 
 .secondContainer img {
-  border-radius: 30px;
+  border-radius: 5px;
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   height: auto;
 }
 
