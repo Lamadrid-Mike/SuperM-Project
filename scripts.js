@@ -69,11 +69,10 @@ const loadProducts = function () {
   let loadedData = JSON.parse(storage);
 
   class Cart {
-    constructor(id, name, price, quantity = 0, weight) {
+    constructor(id, name, price, weight) {
       (this.id = id),
         (this.name = name),
         (this.price = price),
-        (this.quantity = quantity),
         (this.weight = weight);
     }
   }
@@ -120,7 +119,16 @@ const loadProducts = function () {
     localStorage.setItem("productsAdded", JSON.stringify(product));
   };
 
+  const cartQuantity = (array, name, quantity) => {
+    array.find((el) => {
+      if (el.name === name) {
+        return Object.assign(el, { quantity: quantity });
+      }
+    });
+  };
+
   if (loadedData !== null) {
+    cartValue.innerHTML = loadedData.length;
     loadedData.forEach((el) => {
       displayCartContainer(el.name);
       showCloseBtn(el.id);
@@ -128,23 +136,33 @@ const loadProducts = function () {
     });
   }
 
+  let quantity = 0;
   productsContainer.addEventListener("click", function (e) {
-    if (e.target.classList.contains("itemsBtn")) {
-      let productId = e.target.getAttribute("id");
-      displayCartContainer(products[productId].name);
-      displayCartValue();
+    quantity++;
+    let productId = e.target.getAttribute("id");
+    let productName = products[productId].name;
+    if (
+      e.target.classList.contains("itemsBtn") &&
+      !cartContainerNames.includes(productName)
+    ) {
+      displayCartContainer(productName);
       showCloseBtn(productId);
+      displayCartValue();
       productsAdded.push(
         new Cart(
           productId,
           products[productId].name,
           products[productId].price,
-          1,
           products[productId].weight
         )
       );
+    }
+
+    if (cartContainerNames.includes(productName)) {
+      cartQuantity(productsAdded, productName, quantity);
       addToLocalStorage(productsAdded);
     }
+
     if (e.target.classList.contains("closeBtn")) {
       let productId = e.target.getAttribute("id");
       hideCloseBtn(productId);
