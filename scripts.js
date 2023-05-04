@@ -137,10 +137,13 @@ const loadProducts = function () {
   }
 
   let quantity = 0;
+  let currentProduct;
   productsContainer.addEventListener("click", function (e) {
     quantity++;
     let productId = e.target.getAttribute("id");
     let productName = products[productId].name;
+    currentProduct = productName;
+
     if (
       e.target.classList.contains("itemsBtn") &&
       !cartContainerNames.includes(productName)
