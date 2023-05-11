@@ -12,9 +12,13 @@ let data = localStorage.getItem("productsAdded");
 let productsAdded = JSON.parse(data);
 
 console.log(productsAdded);
+
 if (productsAdded !== null) {
   cartValue.textContent = productsAdded.length;
-  let finalPrice = productsAdded.reduce((acc, curr) => acc + curr.price, 0);
+  let finalPrice = productsAdded.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity,
+    0
+  );
   productsAdded.forEach((el) => {
     const html = `
         <tr>
