@@ -32,6 +32,7 @@ const cartValue = document.querySelector(".cartValue");
 
 export let productsAdded = [];
 let cartContainerNames = [];
+let quantity = 0;
 let closeBtn;
 
 const loadProducts = function () {
@@ -69,25 +70,22 @@ const loadProducts = function () {
   let loadedData = JSON.parse(storage);
 
   class Cart {
-    constructor(id, name, price, weight) {
+    constructor(id, name, price, weight, quantity) {
       (this.id = id),
         (this.name = name),
         (this.price = price),
-        (this.weight = weight);
+        (this.weight = weight),
+        (this.quantity = quantity);
     }
   }
 
   const displayCartContainer = (productName) => {
-    if (!cartContainerNames.includes(productName)) {
-      cartContainerNames.push(productName);
-      const p = document.createElement("p");
-      p.setAttribute("id", productName);
-      p.innerHTML = productName;
-      hiddenCartContainer.classList.add("cartContainerFocus");
-      hiddenCartContainer.append(p);
-    } else {
-      console.log(productsAdded);
-    }
+    cartContainerNames.push(productName);
+    const p = document.createElement("p");
+    p.setAttribute("id", productName);
+    p.innerHTML = productName;
+    hiddenCartContainer.classList.add("cartContainerFocus");
+    hiddenCartContainer.append(p);
   };
 
   const cartContainerRemoval = (productName) => {
@@ -119,14 +117,6 @@ const loadProducts = function () {
     localStorage.setItem("productsAdded", JSON.stringify(product));
   };
 
-  const cartQuantity = (array, name, quantity) => {
-    array.find((el) => {
-      if (el.name === name) {
-        return Object.assign(el, { quantity: quantity });
-      }
-    });
-  };
-
   if (loadedData !== null) {
     cartValue.innerHTML = loadedData.length;
     loadedData.forEach((el) => {
@@ -136,16 +126,15 @@ const loadProducts = function () {
     });
   }
 
-  let quantity = 0;
   productsContainer.addEventListener("click", function (e) {
     let productId = e.target.getAttribute("id");
     let productName = products[productId].name;
-    quantity++;
-
     if (
       e.target.classList.contains("itemsBtn") &&
       !cartContainerNames.includes(productName)
     ) {
+      quantity = 0;
+      quantity++;
       displayCartContainer(productName);
       showCloseBtn(productId);
       displayCartValue();
@@ -154,15 +143,19 @@ const loadProducts = function () {
           productId,
           products[productId].name,
           products[productId].price,
-          products[productId].weight
+          products[productId].weight,
+          quantity
         )
       );
+    } else {
+      for (let i = 0; i < productsAdded.length; i++) {
+        if (productsAdded[i].name === productName) {
+          productsAdded[i].quantity++;
+        }
+      }
     }
 
-    if (cartContainerNames.includes(productName)) {
-      cartQuantity(productsAdded, productName, quantity);
-      addToLocalStorage(productsAdded);
-    }
+    console.log(productsAdded);
 
     if (e.target.classList.contains("closeBtn")) {
       let productId = e.target.getAttribute("id");
