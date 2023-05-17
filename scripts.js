@@ -133,7 +133,6 @@ const loadProducts = function () {
       e.target.classList.contains("itemsBtn") &&
       !cartContainerNames.includes(productName)
     ) {
-      quantity = 0;
       quantity++;
       displayCartContainer(productName);
       showCloseBtn(productId);
@@ -148,6 +147,7 @@ const loadProducts = function () {
         )
       );
     } else {
+      quantity = 0;
       for (let i = 0; i < productsAdded.length; i++) {
         if (productsAdded[i].name === productName) {
           productsAdded[i].quantity++;
@@ -156,6 +156,7 @@ const loadProducts = function () {
     }
 
     console.log(productsAdded);
+    addToLocalStorage(productsAdded);
 
     if (e.target.classList.contains("closeBtn")) {
       let productId = e.target.getAttribute("id");
