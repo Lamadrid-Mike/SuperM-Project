@@ -63,7 +63,6 @@ body {
 .secondContainer .grid1 {
   grid-column-start: 1;
   text-align: center;
-  margin: 1em;
 }
 
 .secondContainer .grid2 {
@@ -230,6 +229,7 @@ p {
     margin: 1em;
     text-align: left;
   }
+
   .cartContainer {
     display: none;
   }
