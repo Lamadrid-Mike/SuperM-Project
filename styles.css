@@ -205,8 +205,8 @@ p {
   color: whitesmoke;
   display: none;
   position: absolute;
-  top: 15%;
-  right: 10%;
+  top: 3%;
+  right: 6%;
   font-size: 1.7em;
   cursor: pointer;
 }

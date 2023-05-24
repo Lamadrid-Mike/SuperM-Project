@@ -37,33 +37,20 @@ let closeBtn;
 
 const loadProducts = function () {
   products.forEach((el, i) => {
-    const p = document.createElement("p");
-    const info = document.createElement("p");
-    const div = document.createElement("div");
-    const img = document.createElement("img");
-    const outerDiv = document.createElement("div");
-    const button = document.createElement("button");
-    const closeBtn = document.createElement("closeBtn");
-    div.classList.add(`item${i + 1}`);
-    div.classList.add("itemsLayout");
-    div.appendChild(img).setAttribute("src", `${el.src}`);
-    img.setAttribute("width", "120");
-    img.setAttribute("height", "110");
-    img.classList.add("centerDivs");
-    productsContainer
-      .appendChild(div)
-      .appendChild(outerDiv)
-      .appendChild(p).textContent = `${el.name}`;
-    outerDiv.classList.add("centerDivs");
-    outerDiv.appendChild(info).textContent = `${el.weight}`;
-    button.classList.add("itemsBtn");
-    button.setAttribute("id", `${i}`);
-    button.setAttribute("type", "submit");
-    closeBtn.classList.add("centerDivs");
-    closeBtn.classList.add("closeBtn");
-    closeBtn.setAttribute("id", `${i}`);
-    div.appendChild(closeBtn).textContent = "x";
-    div.appendChild(button).textContent = `${el.price}`;
+    const html = `
+  <div class="item${i + 1} itemsLayout">
+      <img class="centerDivs" src="${el.src}" width="120" height="110" />
+        <div class="centerDivs">
+          <p>${el.name}</p>
+          <p>${el.weight}</p>
+        </div>
+      <closeBtn class="closeBtn centerDivs" id="${i}" name="${
+      el.name
+    }">x</closeBtn>
+    <button type="submit" class="itemsBtn" id="${i}">$${el.price}</button>
+  </div>
+    `;
+    productsContainer.insertAdjacentHTML("beforeend", html);
   });
 
   let storage = localStorage.getItem("productsAdded");
@@ -89,9 +76,8 @@ const loadProducts = function () {
   };
 
   const cartContainerRemoval = (productName) => {
-    let selectedProduct = products[productName].name;
-    let filtered = cartContainerNames.filter((el) => el != selectedProduct);
-    let productToRemove = document.querySelector(`#${selectedProduct}`);
+    let filtered = cartContainerNames.filter((el) => el !== productName);
+    let productToRemove = document.querySelector(`#${productName}`);
     productToRemove.remove();
     cartContainerNames = filtered;
     displayCartValue();
@@ -124,6 +110,7 @@ const loadProducts = function () {
       showCloseBtn(el.id);
       productsAdded.push(el);
     });
+    console.log(productsAdded);
   }
 
   productsContainer.addEventListener("click", function (e) {
@@ -155,16 +142,19 @@ const loadProducts = function () {
       }
     }
     addToLocalStorage(productsAdded);
-    console.log(productsAdded);
+    // console.log(productsAdded);
 
     if (e.target.classList.contains("closeBtn")) {
-      let productId = e.target.getAttribute("id");
-      hideCloseBtn(productId);
-      cartContainerRemoval(productId);
-      let filteredProducts = productsAdded.filter(
-        (el) => el.name !== productName
-      );
-      addToLocalStorage(filteredProducts);
+      let closeBtnId = e.target.getAttribute("name");
+      console.log(closeBtnId);
+      productsAdded.find((el, index) => {
+        if (el.name === closeBtnId) {
+          el.quantity = 0;
+          addToLocalStorage(productsAdded);
+          hideCloseBtn(index);
+          cartContainerRemoval(closeBtnId);
+        }
+      });
     }
   });
 };
