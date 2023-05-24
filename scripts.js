@@ -47,7 +47,9 @@ const loadProducts = function () {
       <closeBtn class="closeBtn centerDivs" id="${i}" name="${
       el.name
     }">x</closeBtn>
-    <button type="submit" class="itemsBtn" id="${i}">$${el.price}</button>
+    <button type="submit" class="itemsBtn" id="${i}" name="${el.name}" >$${
+      el.price
+    }</button>
   </div>
     `;
     productsContainer.insertAdjacentHTML("beforeend", html);
@@ -76,10 +78,8 @@ const loadProducts = function () {
   };
 
   const cartContainerRemoval = (productName) => {
-    let filtered = cartContainerNames.filter((el) => el !== productName);
     let productToRemove = document.querySelector(`#${productName}`);
     productToRemove.remove();
-    cartContainerNames = filtered;
     displayCartValue();
   };
 
@@ -109,27 +109,27 @@ const loadProducts = function () {
       displayCartContainer(el.name);
       showCloseBtn(el.id);
       productsAdded.push(el);
+      cartContainerNames.push(el);
     });
-    console.log(productsAdded);
   }
 
   productsContainer.addEventListener("click", function (e) {
-    let productId = e.target.getAttribute("id");
-    let productName = products[productId].name;
+    let productIndex = e.target.getAttribute("id");
+    let productName = e.target.getAttribute("name");
     if (
       e.target.classList.contains("itemsBtn") &&
       !cartContainerNames.includes(productName)
     ) {
       quantity++;
       displayCartContainer(productName);
-      showCloseBtn(productId);
+      showCloseBtn(productIndex);
       displayCartValue();
       productsAdded.push(
         new Cart(
-          productId,
-          products[productId].name,
-          products[productId].price,
-          products[productId].weight,
+          productIndex,
+          products[productIndex].name,
+          products[productIndex].price,
+          products[productIndex].weight,
           quantity
         )
       );
@@ -141,20 +141,14 @@ const loadProducts = function () {
         }
       }
     }
-    addToLocalStorage(productsAdded);
+
     // console.log(productsAdded);
 
     if (e.target.classList.contains("closeBtn")) {
       let closeBtnId = e.target.getAttribute("name");
-      console.log(closeBtnId);
-      productsAdded.find((el, index) => {
-        if (el.name === closeBtnId) {
-          el.quantity = 0;
-          addToLocalStorage(productsAdded);
-          hideCloseBtn(index);
-          cartContainerRemoval(closeBtnId);
-        }
-      });
+      cartContainerRemoval(closeBtnId);
+      hideCloseBtn(productIndex);
+      displayCartValue();
     }
   });
 };
