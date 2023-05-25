@@ -149,7 +149,7 @@ p {
 }
 
 .itemsLayout {
-  min-width: 330px;
+  min-width: 350px;
   display: grid;
   grid-template-columns: 40% 30% 30%;
   border: 2px solid #00ffff;
