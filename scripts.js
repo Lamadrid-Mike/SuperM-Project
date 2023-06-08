@@ -39,7 +39,10 @@ const loadProducts = function () {
   products.forEach((el, i) => {
     const html = `
   <div class="item${i + 1} itemsLayout">
-      <img class="centerDivs" src="${el.src}" width="120" height="110" />
+      <div class="centerDivs image">
+        <display class="display-quantity" id="${i}"></display>
+        <img src="${el.src}" width="120" height="auto" />
+      </div>
         <div class="centerDivs">
           <p>${el.name}</p>
           <p>${el.weight}</p>
@@ -57,6 +60,7 @@ const loadProducts = function () {
 
   let storage = localStorage.getItem("productsAdded");
   let loadedData = JSON.parse(storage);
+  let display = Array.from(document.getElementsByTagName("display"));
 
   class Cart {
     constructor(id, name, price, weight, quantity) {
@@ -98,10 +102,16 @@ const loadProducts = function () {
 
   const hideCloseBtn = (productBtn) => {
     closeBtn[productBtn].classList.remove("showBtn");
+    display[productBtn].style.display = "none";
   };
 
   const addToLocalStorage = (product) => {
     localStorage.setItem("productsAdded", JSON.stringify(product));
+  };
+
+  const addQuantityNumber = (quantity, index) => {
+    display[index].innerHTML = quantity;
+    display[index].style.display = "block";
   };
 
   if (loadedData !== null) {
@@ -127,6 +137,7 @@ const loadProducts = function () {
       displayCartContainer(productName);
       showCloseBtn(productIndex);
       displayCartValue();
+      addQuantityNumber(quantity, productIndex);
       productsAdded.push(
         new Cart(
           productIndex,
@@ -141,6 +152,7 @@ const loadProducts = function () {
       for (let i = 0; i < productsAdded.length; i++) {
         if (productsAdded[i].name === productName) {
           productsAdded[i].quantity++;
+          addQuantityNumber(productsAdded[i].quantity, productIndex);
         }
       }
     }
