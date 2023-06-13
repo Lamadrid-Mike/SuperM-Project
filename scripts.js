@@ -9,7 +9,7 @@ const products = [
   {
     name: "Milk",
     weight: "200ml",
-    price: 5.0,
+    price: 4.0,
     src: "/milk.png",
   },
   {
@@ -120,6 +120,7 @@ const loadProducts = function () {
       cartContainerNames = cartContainerNames.filter(
         (current) => current !== el
       );
+      addQuantityNumber(el.quantity, el.id);
       displayCartContainer(el.name);
       showCloseBtn(el.id);
       productsAdded.push(el);

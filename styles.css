@@ -72,7 +72,6 @@ body {
 
 .secondContainer h1,
 p {
-  text-align: center;
   color: whitesmoke;
   font-size: 25px;
 }
@@ -90,7 +89,7 @@ p {
 }
 
 .secondContainer img {
-  border-radius: 5px;
+  border-radius: 2px;
   width: 100%;
   max-width: 400px;
   height: auto;
@@ -245,6 +244,12 @@ display.display-quantity {
 }
 
 @media screen and (max-width: 710px) {
+  .products h1 {
+    margin: 0;
+  }
+  .hidden-mobile {
+    display: none;
+  }
   .secondContainer h1,
   p {
     font-size: 16px;
@@ -267,9 +272,7 @@ display.display-quantity {
     align-items: center;
     gap: 0.5em;
   }
-  .navContainer {
-    margin-bottom: 1em;
-  }
+
   .secondContainer {
     display: flex;
     flex-direction: column;
