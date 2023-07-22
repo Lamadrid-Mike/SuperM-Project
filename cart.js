@@ -2,6 +2,7 @@ const cartTable = document.querySelector(".cart-table");
 const payBtn = document.querySelector(".cart-pay-btn");
 const cartValue = document.querySelector(".cartValue");
 const cartPrice = document.querySelector(".cart-price");
+const tableContainer = document.querySelector(".table-container");
 
 const currencyOptions = {
   style: "currency",
@@ -10,8 +11,6 @@ const currencyOptions = {
 
 let data = localStorage.getItem("productsAdded");
 let productsAdded = JSON.parse(data);
-
-console.log(productsAdded);
 
 if (productsAdded !== null) {
   cartValue.textContent = productsAdded.length;
@@ -36,6 +35,10 @@ if (productsAdded !== null) {
   ).format(finalPrice);
 }
 
-payBtn.addEventListener("click", function () {
+payBtn.addEventListener("click", function (e) {
+  e.preventDefault();
   localStorage.clear();
+  tableContainer.remove();
+  cartPrice.remove();
+  payBtn.innerHTML = "Thank you";
 });

@@ -343,12 +343,24 @@ th {
   padding: 8px;
 }
 
+@keyframes opacityEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .table-container {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1em;
+  animation-name: opacityEffect;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
 }
 
 .pay-btn {
