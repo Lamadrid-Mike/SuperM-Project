@@ -375,3 +375,33 @@ th {
 .pay-btn:hover {
   cursor: pointer;
 }
+
+.wrapper {
+  width: 100px;
+  margin: 4em auto 0;
+}
+
+.checkmark {
+  stroke: #0ba9a9;
+  stroke-dashoffset: 745.74853515625;
+  stroke-dasharray: 745.74853515625;
+  animation: dash 2s ease-out forwards;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 745.74853515625;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.wrapper__message {
+  color: whitesmoke;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  animation-name: opacityEffect;
+  animation-duration: 1s;
+}
